@@ -13,4 +13,7 @@ public interface AuthApi
 
 	@PostMapping("/authenticate")
 	public ResponseEntity<AccessTokenDto> authenticate(@RequestBody final AuthenticationRequest request) throws Exception;
+
+	// @RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, method = RequestMethod.POST)
+	// ResponseEntity<UserDto> createUser(@Valid @RequestBody final CreateUserDto dto);
 }

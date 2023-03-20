@@ -6,34 +6,31 @@ import com.naltakyan.auth.domain.organization.model.Organization;
 import com.naltakyan.auth.domain.system.service.SystemDateTimeService;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class OrganizationService
 {
 	private static final String LIKE_PATTERN = "%%%s%%";
 
-	@Autowired
-	private OrganizationRepository repository;
+	private final OrganizationRepository repository;
 
-	@Autowired
-	private SystemDateTimeService systemDateTimeService;
+	private final SystemDateTimeService systemDateTimeService;
 
-	@Transactional(readOnly = true)
-	public Page<OrganizationOrganization> findAll(final GetAllOrganizationsDetails getAllOrganizationsDetails, final Pageable pageable)
-	{
-		final Predicate filter = buildFilter(getAllOrganizationsDetails);
-		return repository.findAll(filter, pageable);
-	}
+	// @Transactional(readOnly = true)
+	// public Page<Organization> findAll(final GetAllOrganizationsDetails getAllOrganizationsDetails,
+	// final Pageable pageable)
+	// {
+	// final Predicate filter = buildFilter(getAllOrganizationsDetails);
+	// return repository.findAll(filter, pageable);
+	// }
 
 	@Transactional
 	public Organization createOrganization(final MutateOrganizationDetails details)
@@ -81,13 +78,15 @@ public class OrganizationService
 	{
 		Assert.notNull(getAllUsersPojo, "Argument getAllUsersPojo should not be null");
 		final BooleanBuilder filter = new BooleanBuilder();
-		Optional.ofNullable(getAllUsersPojo.getName()).filter(StringUtils::hasText)
-			.ifPresent(name -> filter.and(QOrganization.organization.name.likeIgnoreCase(String.format(LIKE_PATTERN, name))));
-		Optional.ofNullable(getAllUsersPojo.getCreatedFrom())
-			.ifPresent(createdFrom -> filter.and(QOrganization.organization.created.goe(createdFrom)));
-		Optional.ofNullable(getAllUsersPojo.getCreatedTo()).ifPresent(createdTo -> filter.and(QOrganization.organization.created.loe(createdTo)));
-		Optional.ofNullable(getAllUsersPojo.getUpdatedAfter())
-			.ifPresent(updatedAfter -> filter.and(QOrganization.organization.created.gt(updatedAfter)));
+		// Optional.ofNullable(getAllUsersPojo.getName()).filter(StringUtils::hasText)
+		// .ifPresent(name ->
+		// filter.and(QOrganization.organization.name.likeIgnoreCase(String.format(LIKE_PATTERN, name))));
+		// Optional.ofNullable(getAllUsersPojo.getCreatedFrom())
+		// .ifPresent(createdFrom -> filter.and(QOrganization.organization.created.goe(createdFrom)));
+		// Optional.ofNullable(getAllUsersPojo.getCreatedTo()).ifPresent(createdTo ->
+		// filter.and(QOrganization.organization.created.loe(createdTo)));
+		// Optional.ofNullable(getAllUsersPojo.getUpdatedAfter())
+		// .ifPresent(updatedAfter -> filter.and(QOrganization.organization.created.gt(updatedAfter)));
 		return filter;
 	}
 }

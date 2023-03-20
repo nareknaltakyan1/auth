@@ -1,15 +1,19 @@
-CREATE TABLE users (
-	id BIGSERIAL NOT NULL,
-    username VARCHAR(255) NOT NULL,
-    saltedPasswordHash VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    phoneNumber VARCHAR(255) NOT NULL,
-	accountState VARCHAR(20) NOT NULL,
-	invalidLoginAttempts SMALLINT NOT NULL DEFAULT 0,
-	created TIMESTAMP NOT NULL,
-	lastLogin TIMESTAMP NULL DEFAULT NULL,
-	PRIMARY KEY(id),
-	UNIQUE(username)
+CREATE TABLE "users" (
+                        id BIGSERIAL NOT NULL,
+                        username VARCHAR(255) NOT NULL,
+                        saltedPasswordHash VARCHAR(255) NOT NULL,
+                        email VARCHAR(50) DEFAULT NULL,
+                        phoneNumber VARCHAR(20) DEFAULT NULL,
+                        tgUsername VARCHAR(255) DEFAULT NULL,
+                        accountState VARCHAR(20) NOT NULL DEFAULT 'CREATED',
+                        invalidLoginAttempts SMALLINT NOT NULL DEFAULT 0,
+                        created TIMESTAMP NOT NULL,
+                        lastLogin TIMESTAMP NULL DEFAULT NULL,
+                        PRIMARY KEY(id),
+                        UNIQUE(username),
+                        CONSTRAINT valid_contact_info CHECK (email IS NOT NULL OR
+                                                             phoneNumber IS NOT NULL OR
+                                                             tgUsername IS NOT NULL)
 );
 
 CREATE TABLE organization (

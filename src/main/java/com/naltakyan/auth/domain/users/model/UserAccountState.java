@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 public enum UserAccountState
 {
-	ACTIVE, DEACTIVATED, LOCKED;
+	CREATED, ACTIVE, DEACTIVATED, LOCKED;
 
 	public static final Set<UserAccountState> ACTIVE_STATES;
 

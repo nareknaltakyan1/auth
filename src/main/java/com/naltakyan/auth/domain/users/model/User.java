@@ -37,13 +37,24 @@ public class User
 	private String saltedPasswordHash;
 	private String email;
 	private String phoneNumber;
+	private String tgUsername;
 	@Enumerated(EnumType.STRING)
 	private UserAccountState accountState;
+	private Integer invalidLoginAttempts;
 	@Column(nullable = false)
 	private LocalDateTime created;
 	private LocalDateTime lastLogin;
-	private Integer invalidLoginAttempts;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<UserPermission> permissions;
 
+	public User(final String username, final String saltedPasswordHash, final String email, final String phoneNumber, final String tgUsername)
+	{
+		this.username = username;
+		this.saltedPasswordHash = saltedPasswordHash;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
+		this.tgUsername = tgUsername;
+		this.accountState = UserAccountState.CREATED;
+		this.invalidLoginAttempts = 0;
+	}
 }
