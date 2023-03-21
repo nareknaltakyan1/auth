@@ -1,5 +1,6 @@
 package com.naltakyan.auth.domain.users.service;
 
+import com.naltakyan.auth.domain.logintypes.service.UserLoginTypesService;
 import com.naltakyan.auth.domain.system.service.SystemDateTimeService;
 import com.naltakyan.auth.domain.users.model.User;
 import com.naltakyan.auth.rest.users.endpoint.CreateUserDto;
@@ -19,6 +20,7 @@ public class UserService
 {
 
 	private final UserRepository userRepository;
+	private final UserLoginTypesService userLoginTypesService;
 
 	// private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -43,8 +45,11 @@ public class UserService
 	public User create(CreateUserDto userDto)
 	{
 		var user = covert(userDto);
-		user.setCreated(systemDateTimeService.getCurrentDateTime());
-		return userRepository.save(user);
+		var dateTime = systemDateTimeService.getCurrentDateTime();
+		user.setCreated(dateTime);
+		user = userRepository.save(user);
+		userLoginTypesService.create(user, userDto.getLoginTypeList(), userDto.getPin(), userDto.getQuestion());
+		return user;
 	}
 
 	private User covert(final CreateUserDto createUserDto)
