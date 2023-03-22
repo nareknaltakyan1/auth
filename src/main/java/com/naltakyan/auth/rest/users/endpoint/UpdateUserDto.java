@@ -5,10 +5,11 @@ import lombok.Value;
 
 @Value
 @Builder
-public class UpdateUserDto {
-    String email;
-    String phoneNumber;
-    String tgUsername;
-    String pin;
-    String question;
+public class UpdateUserDto
+{
+	String email;
+	String phoneNumber;
+	String tgUsername;
+	String pin;
+	String question;
 }

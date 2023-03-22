@@ -69,11 +69,14 @@ public class UserService
 		return user;
 	}
 
-	private void updateStaticLogins(final User user, final String pin, final String question) {
-		if (Objects.nonNull(pin)) {
+	private void updateStaticLogins(final User user, final String pin, final String question)
+	{
+		if (Objects.nonNull(pin))
+		{
 			userLoginTypesService.updateStaticLogins(user, pin, LoginType.PIN);
 		}
-		if (Objects.nonNull(question)) {
+		if (Objects.nonNull(question))
+		{
 			userLoginTypesService.updateStaticLogins(user, question, LoginType.QUESTION);
 		}
 	}

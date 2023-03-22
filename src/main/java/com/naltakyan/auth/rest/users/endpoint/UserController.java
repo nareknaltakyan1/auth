@@ -30,7 +30,8 @@ public class UserController implements UserApi
 	}
 
 	@Override
-	public ResponseEntity<UserDto> updateUser(final Long id, final UpdateUserDto updateDto) {
+	public ResponseEntity<UserDto> updateUser(final Long id, final UpdateUserDto updateDto)
+	{
 		var user = userService.update(id, updateDto);
 		return ResponseEntity.ok(covert(user));
 	}

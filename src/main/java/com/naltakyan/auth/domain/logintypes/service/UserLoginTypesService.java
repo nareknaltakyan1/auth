@@ -81,9 +81,11 @@ public class UserLoginTypesService
 	}
 
 	@Transactional
-	public void updateStaticLogins(final User user, final String value, final LoginType loginType) {
+	public void updateStaticLogins(final User user, final String value, final LoginType loginType)
+	{
 		var userLoginTypeOpt = repository.findUserLoginTypesByUserAndLoginType(user, loginType);
-		if (userLoginTypeOpt.isPresent()){
+		if (userLoginTypeOpt.isPresent())
+		{
 			var userLoginType = userLoginTypeOpt.get();
 			userLoginType.setValue(value);
 			userLoginType.setSetValueDate(systemDateTimeService.getCurrentDateTime());

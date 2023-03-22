@@ -32,6 +32,6 @@ public interface UserApi
 
 	@PutMapping("/{id}")
 	@PreAuthorize(IS_OR_USER_OR_ADMIN)
-	ResponseEntity<UserDto> updateUser(@PathVariable(name = "id") final Long id,@RequestBody final UpdateUserDto updateDto);
+	ResponseEntity<UserDto> updateUser(@PathVariable(name = "id") final Long id, @RequestBody final UpdateUserDto updateDto);
 
 }
