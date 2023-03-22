@@ -80,6 +80,17 @@ public class UserLoginTypesService
 		return false;
 	}
 
+	@Transactional
+	public void updateStaticLogins(final User user, final String value, final LoginType loginType) {
+		var userLoginTypeOpt = repository.findUserLoginTypesByUserAndLoginType(user, loginType);
+		if (userLoginTypeOpt.isPresent()){
+			var userLoginType = userLoginTypeOpt.get();
+			userLoginType.setValue(value);
+			userLoginType.setSetValueDate(systemDateTimeService.getCurrentDateTime());
+			repository.save(userLoginType);
+		}
+	}
+
 	public boolean checkUserLoginFlow(final User user)
 	{
 		var userLoginTypes = repository.getUserLoginTypesByUserOrderByPriority(user);

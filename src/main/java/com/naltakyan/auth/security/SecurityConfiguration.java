@@ -33,7 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception
 	{
-		http.cors().and().csrf().disable().authorizeRequests().antMatchers("/auth/**", "/users/create").permitAll().anyRequest().authenticated().and()
+		http.cors().and().csrf().disable().authorizeRequests().antMatchers(			"/swagger-resources/**",
+						"/swagger-ui.html",
+						"/v2/api-docs",
+						"/webjars/**","/auth/**", "/users/create", "/swagger-ui/**","/swagger-ui.html", "/swagger-ui.html/**", "/swagger**").permitAll().anyRequest().authenticated().and()
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and().sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
